@@ -19,38 +19,55 @@
 * 재고 정보 입력, 수정, 삭제, 출력, 정렬(CRUD)
 <details>
 <summary><b>INSERT</b></summary>
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/product_insert.png width = "400px" height = "200px">
 </details>
 <details>
 <summary><b>SELECT</b></summary>
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/product_select.png width = "400px" height = "200px">
 </details>
 <details>
 <summary><b>UPDATE</b></summary>
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/product_update.png width = "400px" height = "200px">
 </details>
 <details>
 <summary><b>DELETE</b></summary>
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/product_delete1.png width = "400px" height = "200px">
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/product_delete2.png width = "400px" height = "200px">
 </details>
 <details>
 <summary><b>SORT</b></summary>
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/product_sort.png width = "400px" height = "200px">
 </details>
 
 ___
 
 **주문**
 * 주문 정보 입력, 수정, 삭제, 출력, 정렬(CRUD)
+* 주문 입력시 자동으로 재고 감소 기능
 <details>
 <summary><b>INSERT</b></summary>
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/order_insert1.png width = "400px" height = "200px">
+    <br>
+    
+**주문 입력시 재고 감소**
+    <br>
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/order_insert2.png width = "400px" height = "200px">
 </details>
 <details>
 <summary><b>SELECT</b></summary>
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/order_select.png width = "400px" height = "200px">
 </details>
 <details>
 <summary><b>UPDATE</b></summary>
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/order_update.png width = "400px" height = "200px">
 </details>
 <details>
 <summary><b>DELETE</b></summary>
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/order_delete.png width = "400px" height = "200px">
 </details>
 <details>
 <summary><b>SORT</b></summary>
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/order_sort.png width = "400px" height = "200px">
 </details>
 
 ___
@@ -59,19 +76,24 @@ ___
 * 고객 정보 입력, 수정, 삭제, 출력, 정렬(CRUD)
 * 중복ID 체크 기능
 <details>
-<summary><b>INSERT</b></summary> 
+<summary><b>INSERT</b></summary>
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/customer_insert.png width = "400px" height = "200px">
 </details>
 <details>
 <summary><b>SELECT</b></summary> 
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/order_select.png width = "400px" height = "200px">
 </details>
 <details>
 <summary><b>UPDATE</b></summary>
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/order_update.png width = "400px" height = "200px">
 </details>
 <details>
 <summary><b>DELETE</b></summary> 
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/order_delete.png width = "400px" height = "200px">
 </details>
 <details>
 <summary><b>SORT</b></summary>
+    <img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/order_sort.png width = "400px" height = "200px">
 </details>
 
 ___
@@ -81,7 +103,7 @@ ___
 -- 재고 테이블
 CREATE TABLE PRODUCTS(
     no number,                   -- 제품번호(PK, SEQ)
-    code varchar2(2) not null,   -- 제품코드(UK)
+    code varchar2(2),            -- 제품코드(UK)
     name varchar2(20) not null,  -- 제품명
     type varchar2(20) not null,  -- 제품종류
     price number not null,       -- 가격
@@ -89,18 +111,18 @@ CREATE TABLE PRODUCTS(
 );
 ALTER table products add constraint products_no_pk primary key(no);
 ALTER table products add constraint products_code_uk UNIQUE(code);
-
+drop table products;
 create sequence products_seq
 start with 1
 increment by 1;
 
 -- 주문 테이블
 CREATE TABLE ORDERS(
-    no number,                    -- (PK, SEQ)
-    id varchar2(12) not null,     -- 주문번호(UK)
+    no number,                    -- 주문번호(PK, SEQ)
+    id varchar2(12),              -- 주문ID(UK)
     c_name varchar2(12) not null, -- 주문자이름
-    p_code varchar2(2) not null,  -- 제품코드(FK(products))
-    quantity number not null,     -- 주문수량
+    p_code varchar2(2),           -- 제품코드(FK(products))
+    quantity number,              -- 주문수량
     odate date default sysdate    -- 주문날짜
 );
 ALTER table orders add constraint orders_no_pk primary key(no);
@@ -116,11 +138,11 @@ increment by 1;
 CREATE TABLE CUSTOMERS(
     no number,                      -- 고객번호(PK, SEQ)
     name varchar2(12) not null,     -- 이름
-    id varchar2(12) not null,       -- 아이디(UK)
+    id varchar2(12),                -- 아이디(UK)
     passwd varchar2(12) not null,   -- 패스워드
     birthday varchar2(8) not null,  -- 생년월일
     phone varchar2(15) not null,    -- 전화번호
-    o_id varchar2(12) not null      -- 주문번호(FK(orders))
+    o_id varchar2(12)               -- 주문번호(FK(orders))
 );
 ALTER table customers add constraint customers_no_pk primary key(no);
 ALTER table customers add constraint customers_id_uk UNIQUE(id);
@@ -162,6 +184,7 @@ commit;
 ```
 
 ## 📖테이블 정보
+<img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/product_table.png>
 
 ## 📖ERD 다이어그램
-<img src=https://github.com/kwonminsung0/TravelProject/blob/main/image/travel_erd.png>
+<img src=https://github.com/kwonminsung0/ProductProject/blob/main/image/product_erd.png>
