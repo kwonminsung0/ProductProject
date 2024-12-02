@@ -30,6 +30,14 @@ public class CustomerRegisterManager {
 		CustomerVO cvo = new CustomerVO();
 
 		System.out.println("고객 정보 입력");
+		// 전체 주문리스트 출력
+		ArrayList<OrderVO> orderList = odao.orderSelect(ovo);
+		if (orderList.size() != 0) {
+			OrderRegisterManager.printOrderList(orderList);
+		} else {
+			System.out.println("주문이 존재하지 않습니다.");
+			return;
+		}
 		System.out.print("성명 >>");
 		String name = (sc.nextLine()).trim();
 		String id = null;
@@ -49,21 +57,13 @@ public class CustomerRegisterManager {
 		System.out.print("비밀번호(12자 이내) : ");
 		String passwd = (sc.nextLine()).trim();
 
-		System.out.print("생년월일(8자리: 19900829) : ");
+		System.out.print("생년월일(8자리: 20000918) : ");
 		String birthday = (sc.nextLine()).trim();
 
 		System.out.print("전화번호(010-xxxx-xxxx):");
 		String phone = (sc.nextLine()).trim();
 
-		// 전체 주문리스트 출력
-		ArrayList<OrderVO> orderList = odao.orderSelect(ovo);
-		if (orderList.size() != 0) {
-			OrderRegisterManager.printOrderList(orderList);
-		} else {
-			System.out.println("주문이 존재하지 않습니다.");
-			return;
-		}
-		System.out.print("주문번호:");
+		System.out.print("주문ID:");
 		String o_id = (sc.nextLine()).trim();
 
 		CustomerVO customerVO = new CustomerVO(0, name, id, passwd, birthday, phone, o_id);
@@ -171,21 +171,26 @@ public class CustomerRegisterManager {
 	}
 
 	public void printStudentList2(ArrayList<CustomerAllVO> customerAllList) {
-		System.out.println(
-				"=================================================================================================================================================");
+		System.out.println();
+		System.out.printf(
+				"%-7s %-13s %-13s %-10s %-12s %-13s %-12s %-10s\n",
+				"고객번호", "고객이름", "ID", "PW", "생년월일", "전화번호", "주문번호", "주문수량");
+		System.out.println("=============================================================================================================");
 		for (CustomerAllVO cav : customerAllList) {
 			System.out.println(cav.toString());
 		}
-		System.out.println(
-				"=================================================================================================================================================");
+		System.out.println();
 	}
 
 	// 전체 주문리스트를 출력진행
 	public void printCustomerList(ArrayList<CustomerVO> customerList) {
-		System.out.println("=================================================================================================================================================");
+		System.out.println();
+		System.out.printf("%-7s %-13s %-13s %-10s %-12s %-13s %-10s\n",
+				"고객번호", "고객이름", "ID", "PW", "생년월일", "전화번호", "주문번호");
+		System.out.println("=============================================================================================================");
 		for (CustomerVO cvo : customerList) {
 			System.out.println(cvo.toString());
 		}
-		System.out.println("=================================================================================================================================================");
+		System.out.println();
 	}
 }

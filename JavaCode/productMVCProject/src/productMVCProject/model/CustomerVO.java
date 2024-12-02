@@ -92,8 +92,9 @@ public class CustomerVO {
 
 	@Override
 	public String toString() {
-		return "[" + no + ", 고객명 : " + name + ", ID : " + id + ", PW : " + passwd + ", 생년월일 : " + birthday + ", 전화번호 : "
-				+ phone + ", 주문번호 : " + o_id + "]";
+		return String.format(
+				"%-10s %-10s %-13s %-12s %-12s %-16s %-10s\n",
+				no, name, id, passwd, birthday, phone, o_id);
 	}
 
 }

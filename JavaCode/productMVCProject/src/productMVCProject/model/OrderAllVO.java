@@ -3,8 +3,8 @@ package productMVCProject.model;
 import java.util.Date;
 
 public class OrderAllVO {
-	private int no; // -- (PK, SEQ)
-	private String id; // -- 주문번호(UK)
+	private int no; // -- 주문번호(PK, SEQ)
+	private String id; // -- 주문ID(UK)
 	private String c_name; // -- 주문자이름
 	private String p_code; // -- 제품번호(FK(products))
 	private String p_name; // -- 제품명
@@ -24,8 +24,9 @@ public class OrderAllVO {
 
 	@Override
 	public String toString() {
-		return "[" + no + ", " + id + ", " + c_name + ", " + p_code + ", "
-				+ p_name + ", " + quantity + ", " + odate + "]";
+		return String.format(
+				"%-10s %-14s %-12s %-10s %-12s %-8s %-10s\n",
+				no, id, c_name, p_code, p_name, quantity, odate);
 	}
 
 }

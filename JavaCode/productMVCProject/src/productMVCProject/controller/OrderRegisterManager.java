@@ -1,6 +1,5 @@
 package productMVCProject.controller;
 
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +30,13 @@ public class OrderRegisterManager {
 		ProductVO pvo = new ProductVO();
 		OrderDAO odao = new OrderDAO();
 		OrderVO ovo = new OrderVO();
+		
+		ArrayList<OrderVO> orderList = odao.orderSelect(ovo);
+		if (orderList.size() != 0) {
+			printOrderList(orderList);
+		} else {
+			System.out.println("주문이 존재하지 않습니다.");
+		}
 
 		System.out.println("주문 정보 입력");
 		System.out.print("성명 >>");
@@ -55,7 +61,7 @@ public class OrderRegisterManager {
 
 		String result = odao.getOrderCount(ovo);
 		if (result == null) {
-			System.out.println("주문번호 생성부분에 문제가 발생했습니다.");
+			System.out.println("주문ID 생성부분에 문제가 발생했습니다.");
 			// return;
 		} else {
 			System.out.println("주문번호 생성");
@@ -91,7 +97,7 @@ public class OrderRegisterManager {
 			return;
 		}
 		// 수정할 주문번호, 이름, 제품번호, 주문 수량을 입력
-		System.out.print("수정할 주문번호를 입력하세요: ");
+		System.out.print("수정할 주문ID를 입력하세요: ");
 		String id = (sc.nextLine()).trim();
 		System.out.print("수정할 주문자 이름을 입력하세요: ");
 		String c_name = (sc.nextLine()).trim();
@@ -120,7 +126,7 @@ public class OrderRegisterManager {
 		}
 	}
 
-	public void deleteManager() throws SQLException {
+	public void deleteManager() {
 		OrderDAO odao = new OrderDAO();
 		OrderVO ovo = new OrderVO();
 
@@ -132,7 +138,7 @@ public class OrderRegisterManager {
 			System.out.println("주문이 존재하지 않습니다.");
 			return;
 		}
-		System.out.print("삭제할 주문 번호를 입력하세요: ");
+		System.out.print("삭제할 주문번호를 입력하세요: ");
 		int no = Integer.parseInt((sc.nextLine()).trim());
 		ovo.setNo(no);
 		boolean successFlag = odao.orderDelete(ovo);
@@ -144,7 +150,7 @@ public class OrderRegisterManager {
 		}
 	}
 
-	public void sortManager() throws SQLException {
+	public void sortManager() {
 		OrderDAO odao = new OrderDAO();
 		ArrayList<OrderVO> orderList = odao.orderSort();
 		if (orderList.size() != 0) {
@@ -167,22 +173,27 @@ public class OrderRegisterManager {
 	}
 
 	public void printOrderList2(ArrayList<OrderAllVO> orderAllList) {
-		System.out.println(
-				"=================================================================================================================================================");
+		System.out.println();
+		System.out.printf(
+				"%-10s %-10s %-10s %-10s %-10s %-10s %-10s\n",
+				"주문번호", "주문ID", "주문자이름", "제품번호", "제품명", "주문수량", "주문날짜");
+		System.out.println("=============================================================================================================");
 		for (OrderAllVO sav : orderAllList) {
 			System.out.println(sav.toString());
 		}
-		System.out.println(
-				"=================================================================================================================================================");
-
+		System.out.println();
 	}
 
 	// 전체 주문리스트를 출력진행
 	public static void printOrderList(ArrayList<OrderVO> orderList) {
-		System.out.println("=================================================================================================================================================");
+		System.out.println();
+		System.out.printf(
+				"%-10s %-10s %-10s %-10s %-10s %-10s\n",
+				"주문번호", "주문ID", "주문자이름", "제품번호", "주문수량", "주문날짜");
+		System.out.println("=============================================================================================================");
 		for (OrderVO ovo : orderList) {
 			System.out.println(ovo.toString());
 		}
-		System.out.println("=================================================================================================================================================");
+		System.out.println();
 	}
 }

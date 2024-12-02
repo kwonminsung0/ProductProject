@@ -6,6 +6,6 @@ public interface CUSTOMER_CHOICE {
 	int UPDATE = 3;
 	int DELETE = 4;
 	int SORT = 5;
-	int LIST_ALL = 6;
-	int MAIN = 7;
+	int MAIN = 6;
 }
+

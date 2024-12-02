@@ -10,11 +10,11 @@ import productMVCProject.model.ProductVO;
 
 public class ProductDAO {
 
-	public static final String PRODUCT_SELECT = "SELECT * FROM PRODUCTS";
-	public static final String PRODUCT_INSERT = "INSERT INTO PRODUCTS VALUES (products_seq.nextval, ?, ?, ?, ?, ?)";
-	public static final String PRODUCT_UPDATE = "UPDATE PRODUCTS CODE = ?, NAME = ?, TYPE = ?, PRICE = ?, STOCK = ? WHERE NO = ?";
-	public static final String PRODUCT_DELETE = "DELETE FROM PRODUCTS WHERE NO = ?";
-	public static final String PRODUCT_SORT = "SELECT * FROM PRODUCTS ORDER BY CODE";
+	public final String PRODUCT_SELECT = "SELECT * FROM PRODUCTS";
+	public final String PRODUCT_INSERT = "INSERT INTO PRODUCTS VALUES (products_seq.nextval, ?, ?, ?, ?, ?)";
+	public final String PRODUCT_UPDATE = "UPDATE PRODUCTS SET CODE = ?, NAME = ?, TYPE = ?, PRICE = ?, STOCK = ? WHERE NO = ?";
+	public final String PRODUCT_DELETE = "DELETE FROM PRODUCTS WHERE NO = ?";
+	public final String PRODUCT_SORT = "SELECT * FROM PRODUCTS ORDER BY CODE";
 
 	public ArrayList<ProductVO> productSelect(ProductVO pvo) {
 		Connection con = null;

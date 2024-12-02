@@ -73,6 +73,7 @@ public class ProductRegisterManager {
 		// 수정할 정보 입력
 		System.out.print("수정할 제품 번호를 입력하세요: ");
 		int no = Integer.parseInt((sc.nextLine()).trim());
+		System.out.println("[제품코드:01, 02, 03, 04, 05] [제품종류:01(전자제품),02(의류), 03(생필품), 04(식품),05(가구)]");
 		System.out.print("수정할 제품 코드를 입력하세요: ");
 		String code = (sc.nextLine()).trim();
 		System.out.print("새로운 제품명을 입력하세요: ");
@@ -137,10 +138,14 @@ public class ProductRegisterManager {
 
 	// 전체 재고리스트를 출력진행
 	public static void printProductList(ArrayList<ProductVO> productList) {
-		System.out.println("=================================================================================================================================================");
+		System.out.println();
+		System.out.printf(
+				"%-10s %-10s %-10s %-10s %-10s %-10s\n",
+				"제품번호", "제품코드", "제품명", "제품종류", "가격", "재고량");
+		System.out.println("=============================================================================================================");
 		for (ProductVO sv : productList) {
 			System.out.println(sv);
 		}
-		System.out.println("=================================================================================================================================================");
+		System.out.println();
 	}
 }

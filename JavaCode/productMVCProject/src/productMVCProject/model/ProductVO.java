@@ -81,7 +81,9 @@ public class ProductVO {
 
 	@Override
 	public String toString() {
-		return "[" + no + ", 제품코드 : " + code + ", 제품명 : " + name + ", 제품종류 : " + type + ", 가격 : " + price + ", 재고수량 : " + stock + "]";
+		return String.format(
+				"%-13s %-10s %-10s %-10s %-13s %-10s\n",
+				no, code, name, type, price, stock);
 	}
 
 }
